@@ -1,16 +1,17 @@
 import React from "react";
 import colors from "../../utils/colors";
 import styled from "styled-components";
-import DynamicText from "./DynamicText";
 import Divider from "../../components/Divider/Divider";
 
 export default function Display() {
     return (
-        <DisplayContainer>
+        <DisplayContainer className="animate-bg">
             <TextContainer>
                 <Title>Mouad K.</Title>
                 <Divider theme={{ bg: colors.primary, fg: "white" }} />
-                <DynamicText />
+                <Subtitle>
+                    Full Stack Web Developer - Software Programmer
+                </Subtitle>
             </TextContainer>
         </DisplayContainer>
     );
@@ -19,7 +20,6 @@ export default function Display() {
 const DisplayContainer = styled.div`
     width: 100%;
     height: 100vh;
-    background-color: ${colors.primary};
 `;
 
 const TextContainer = styled.div`
@@ -32,5 +32,11 @@ const TextContainer = styled.div`
 const Title = styled.h1`
     color: white;
     font-size: 4.5em;
-    font-weight: 700;
+    font-weight: 800;
+    text-align: center;
+    text-transform: uppercase;
+`;
+
+const Subtitle = styled.h3`
+    color: white;
 `;

@@ -6,7 +6,8 @@ const Divider = styled.div`
     text-align: center;
     border: none;
     border-top: solid 0.25rem;
-    margin: 2.5rem auto;
+    margin: 0 auto;
+    margin-top: 2rem;
     border-color: ${(props) => props.theme.fg};
 
     &::after {
@@ -19,7 +20,7 @@ const Divider = styled.div`
         font-weight: 900;
         font-size: 2em;
         color: ${(props) => props.theme.fg};
-        background-color: ${(props) => props.theme.bg};
+        background-color: transparent;
     }
 `;
 
