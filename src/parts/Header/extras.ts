@@ -1,33 +1,49 @@
 import Navbar from "react-bootstrap/Navbar";
 import styled from "styled-components";
 import colors from "../../utils/colors";
+import Nav from "react-bootstrap/Nav";
 
 export interface HeaderItem {
-    title: string;
-    link: string;
+  title: string;
+  link: string;
 }
 
 export const HeaderContainer = styled.header`
-    position: absolute;
-    width: 100%;
+  position: absolute;
+  width: 100%;
 `;
 
 export const FullNavbar = styled(Navbar)`
-    width: 100%;
-    justify-content: space-between;
+  width: 100%;
+  justify-content: space-between;
 `;
 
 export const Logo = styled.img`
-    max-height: 50px;
+  max-height: 50px;
 `;
 
-export const NavButton = styled.span`
-    color: white;
-    font-size: 20px;
-    text-transform: uppercase;
-    font-weight: 600;
+export const NavContainer = styled(Nav)`
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  padding: 0;
+`;
 
-    &:hover {
-        color: ${colors.dark};
-    }
+export const NavButton = styled(Nav.Link)`
+  color: white !important;
+  font-size: 20px;
+  text-transform: uppercase;
+  font-weight: 600;
+  padding: 10px 20px !important ;
+
+  &:nth-child(1) {
+    border-radius: 10px 0 0 10px;
+  }
+  &:last-child {
+    border-radius: 0 10px 10px 0;
+  }
+
+  &:hover {
+    color: ${colors.dark};
+    background-color: rgba(255, 255, 255, 0.3);
+  }
 `;
