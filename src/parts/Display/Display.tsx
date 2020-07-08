@@ -8,7 +8,7 @@ export default function Display() {
     <DisplayContainer className="animate-bg">
       <TextContainer>
         <Title>Mouad K.</Title>
-        <Divider theme={{ bg: colors.primary, fg: "white" }} />
+        <Divider theme={{ fg: "white" }} />
         <Subtitle>Full Stack Web Developer - Software Programmer</Subtitle>
       </TextContainer>
     </DisplayContainer>
