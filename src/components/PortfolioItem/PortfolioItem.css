@@ -1,0 +1,48 @@
+.laptop {
+	width: 100%;
+	height: 250px;
+}
+.laptop .laptop-screen {
+	position: relative;
+	left: 7%;
+	height: 94%;
+	width: 86%;
+	background-color: #333;
+	border-radius: 2vw 2vw 0 0;
+	padding: 3.5%;
+}
+.laptop .laptop-screen .laptop-content {
+	width: 100%;
+	height: 100%;
+	background-color: #37474f;
+}
+.laptop .laptop-screen .laptop-content h1 {
+	margin: 0;
+	color: #fff;
+	font-family: Arvo, sans-serif;
+	font-weight: 400;
+	text-align: center;
+}
+.laptop .laptop-base {
+	background-color: #bbb;
+	height: 6%;
+	border-radius: 0 0 1vw 1vw;
+}
+.laptop .laptop-base .laptop-trackpad {
+	position: relative;
+	left: 50%;
+	background-color: #666;
+	width: 20%;
+	height: 30%;
+	border-radius: 0 0 1vw 1vw;
+	transform: translateX(-50%);
+}
+.laptop-content img {
+	width: 100%;
+	position: relative;
+	transition: all 4s;
+	vertical-align: middle;
+}
+.laptop-content {
+	overflow: hidden;
+}
