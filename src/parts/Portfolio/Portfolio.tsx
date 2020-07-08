@@ -14,7 +14,7 @@ export default function Portfolio() {
 			id: 1,
 			title: "My Portfolio",
 			description: "My own portfolio",
-			tags: ["ts", "react", "web"],
+			tags: ["typescript", "react"],
 			date: "08-07-2020",
 			image: "https://via.placeholder.com/400",
 			link: "http://www.mouadk.xyz/",
@@ -23,7 +23,7 @@ export default function Portfolio() {
 			id: 2,
 			title: "My Handy",
 			description: "Mobile app to connect handy workers to customers",
-			tags: ["angular", "spring", "ionic", "mobile"],
+			tags: ["angular", "spring", "ionic"],
 			date: "01-06-2019",
 			image: "https://via.placeholder.com/400",
 		},
@@ -31,7 +31,7 @@ export default function Portfolio() {
 			id: 3,
 			title: "My Handy",
 			description: "Mobile app to connect handy workers to customers",
-			tags: ["angular", "spring", "ionic", "mobile"],
+			tags: ["angular", "spring", "ionic"],
 			date: "01-06-2019",
 			image: "https://via.placeholder.com/400",
 		},
@@ -39,7 +39,7 @@ export default function Portfolio() {
 			id: 3,
 			title: "My Handy",
 			description: "Mobile app to connect handy workers to customers",
-			tags: ["angular", "spring", "ionic", "mobile"],
+			tags: ["angular", "spring", "ionic"],
 			date: "01-06-2019",
 			image: "https://via.placeholder.com/400",
 		},
@@ -47,23 +47,7 @@ export default function Portfolio() {
 			id: 3,
 			title: "My Handy",
 			description: "Mobile app to connect handy workers to customers",
-			tags: ["angular", "spring", "ionic", "mobile"],
-			date: "01-06-2019",
-			image: "https://via.placeholder.com/400",
-		},
-		{
-			id: 3,
-			title: "My Handy",
-			description: "Mobile app to connect handy workers to customers",
-			tags: ["angular", "spring", "ionic", "mobile"],
-			date: "01-06-2019",
-			image: "https://via.placeholder.com/400",
-		},
-		{
-			id: 3,
-			title: "My Handy",
-			description: "Mobile app to connect handy workers to customers",
-			tags: ["angular", "spring", "ionic", "mobile"],
+			tags: ["angular", "spring", "ionic"],
 			date: "01-06-2019",
 			image: "https://via.placeholder.com/400",
 		},
@@ -78,7 +62,7 @@ export default function Portfolio() {
 					{projects
 						.slice(0, showAll ? projects.length : 3)
 						.map((project) => (
-							<Col sm={12} md={4}>
+							<Col sm={12} md={4} className="mb-2">
 								<PortfolioItem project={project} />
 							</Col>
 						))}
