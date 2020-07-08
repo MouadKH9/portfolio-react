@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import SectionTitle from "../../components/SectionTitle/SectionTitle";
 import Container from "react-bootstrap/Container";
@@ -7,55 +7,17 @@ import { ProjectInterface } from "./types";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 import PortfolioItem from "../../components/PortfolioItem/PortfolioItem";
+import { useFirestoreDocData, useFirestore } from "reactfire";
 
 export default function Portfolio() {
-	const [projects, setProjects] = useState<ProjectInterface[]>([
-		{
-			id: 1,
-			title: "My Portfolio",
-			description: "My own portfolio",
-			tags: ["typescript", "react"],
-			date: "08-07-2020",
-			image: "https://via.placeholder.com/400",
-			link: "http://www.mouadk.xyz/",
-		},
-		{
-			id: 2,
-			title: "My Handy",
-			description: "Mobile app to connect handy workers to customers",
-			tags: ["angular", "spring", "ionic"],
-			date: "01-06-2019",
-			image: "https://via.placeholder.com/400",
-		},
-		{
-			id: 3,
-			title: "My Handy",
-			description: "Mobile app to connect handy workers to customers",
-			tags: ["angular", "spring", "ionic"],
-			date: "01-06-2019",
-			image: "https://via.placeholder.com/400",
-		},
-		{
-			id: 3,
-			title: "My Handy",
-			description: "Mobile app to connect handy workers to customers",
-			tags: ["angular", "spring", "ionic"],
-			date: "01-06-2019",
-			image: "https://via.placeholder.com/400",
-		},
-		{
-			id: 3,
-			title: "My Handy",
-			description: "Mobile app to connect handy workers to customers",
-			tags: ["angular", "spring", "ionic"],
-			date: "01-06-2019",
-			image: "https://via.placeholder.com/400",
-		},
-	]);
+	const [projects, setProjects] = useState<ProjectInterface[]>([]);
 	const [showAll, setShowAll] = useState(false);
 
+	const ref = useFirestore().collection("projects").get();
+	ref.then((data) => console.log(data));
+
 	return (
-		<PortfolioContainer>
+		<PortfolioContainer id="portfolio">
 			<SectionTitle title="Portfolio" />
 			<Container fluid>
 				<Row>
