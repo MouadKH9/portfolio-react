@@ -14,11 +14,10 @@ export default function Portfolio() {
 
 	const projectsRef = useFirestore().collection("projects");
 	const projects = useFirestoreCollectionData<ProjectInterface>(projectsRef);
-	console.log("Portfolio -> projects", projects);
 
 	return (
 		<PortfolioContainer id="portfolio">
-			<SectionTitle title="Portfolio" />
+			<SectionTitle title="Portfolio" theme="light" />
 			<Container fluid>
 				<Row>
 					{projects
