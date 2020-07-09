@@ -16,6 +16,7 @@ const Container = styled.div`
 	background-color: rgba(255, 255, 255, 0.3);
 	border-radius: 10px;
 	transition: all 0.3s;
+	cursor: default;
 
 	&:hover {
 		transform: scale(1.05);

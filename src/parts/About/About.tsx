@@ -23,23 +23,20 @@ export default function About() {
 				<Description
 					dangerouslySetInnerHTML={{
 						__html: siteInfo.description,
-					}}></Description>
-				<ParagraphTitle>Services</ParagraphTitle>
+					}}
+				></Description>
+				<ParagraphTitle>Services:</ParagraphTitle>
 				<Row>
-					{siteInfo.services.map((service, index) => (
-						<Col sm={12} md={4} key={index}>
-							<ServiceItem service={service} />
-						</Col>
-					))}
+					{siteInfo.services &&
+						siteInfo.services.map((service, index) => (
+							<Col sm={12} md={4} key={index}>
+								<ServiceItem service={service} />
+							</Col>
+						))}
 				</Row>
 				<Row className="pb-3 pt-5">
-					<Col
-						sm={{ span: 6, offset: 3 }}
-						md={{ span: 4, offset: 4 }}>
-						<Button
-							href="#contact"
-							className="w-100"
-							variant="outline-dark">
+					<Col sm={{ span: 6, offset: 3 }} md={{ span: 4, offset: 4 }}>
+						<Button href="#contact" className="w-100" variant="outline-dark">
 							<i className="fas fa-envelope"></i> Contact me
 						</Button>
 					</Col>

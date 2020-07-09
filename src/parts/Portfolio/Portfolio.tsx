@@ -48,4 +48,5 @@ export default function Portfolio() {
 
 const PortfolioContainer = styled.div`
 	width: 100%;
+	padding: 10px 0 20px 0;
 `;
