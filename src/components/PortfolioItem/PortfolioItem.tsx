@@ -1,14 +1,9 @@
 import React from "react";
 import { ProjectInterface } from "../../parts/Portfolio/types";
 import "./PortfolioItem.css";
-import styled from "styled-components";
 import TagImage from "../TagImage/TagImage";
 
-export default function PortfolioItem({
-	project,
-}: {
-	project: ProjectInterface;
-}) {
+export default function PortfolioItem({ project }: { project: any }) {
 	return (
 		<>
 			<div className="laptop">
@@ -29,7 +24,7 @@ export default function PortfolioItem({
 			</div>
 			<h3 className="text-center bold mt-3 text-dark">{project.title}</h3>
 			<div>
-				{project.tags.map((tag) => (
+				{project.tags.map((tag: string) => (
 					<TagImage name={tag} />
 				))}
 			</div>

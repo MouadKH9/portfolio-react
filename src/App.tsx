@@ -1,15 +1,11 @@
-import React, { Suspense } from "react";
+import React from "react";
 import Header from "./parts/Header/Header";
 
 import Display from "./parts/Display/Display";
 import Portfolio from "./parts/Portfolio/Portfolio";
 
-import {
-	FirebaseAppProvider,
-	useFirestoreDocData,
-	useFirestore,
-	SuspenseWithPerf,
-} from "reactfire";
+import { FirebaseAppProvider, SuspenseWithPerf } from "reactfire";
+import Loading from "./components/Loading/Loading";
 
 const firebaseConfig = {
 	apiKey: "AIzaSyCa0OKjjRPpNlGQy9N6T3_QjGRCDfjtHJI",
@@ -24,11 +20,11 @@ const firebaseConfig = {
 function App() {
 	return (
 		<FirebaseAppProvider firebaseConfig={firebaseConfig}>
-			<Suspense fallback="Loading">
+			<SuspenseWithPerf fallback={<Loading />} traceId="main-suspense">
 				<Header />
 				<Display />
 				<Portfolio />
-			</Suspense>
+			</SuspenseWithPerf>
 		</FirebaseAppProvider>
 	);
 }
