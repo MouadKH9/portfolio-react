@@ -4,10 +4,12 @@ import { SocialMedia } from "./types";
 
 export default function SocialMediaItem({ social }: { social: SocialMedia }) {
 	return (
-		<Container>
-			<Icon src={social.icon} alt={social.title} />
-			<Title>Find me on {social.title}</Title>
-		</Container>
+		<Link href={social.link} target="_blank">
+			<Container>
+				<Icon src={social.icon} alt={social.title} />
+				<Title>Find me on {social.title}</Title>
+			</Container>
+		</Link>
 	);
 }
 
@@ -33,3 +35,11 @@ const Container = styled.div`
 `;
 
 const Title = styled.h4``;
+
+const Link = styled.a`
+	color: inherit;
+
+	&:hover {
+		text-decoration: none;
+	}
+`;
