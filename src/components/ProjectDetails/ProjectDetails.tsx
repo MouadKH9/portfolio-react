@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import { ProjectInterface } from "../../parts/Portfolio/types";
@@ -14,8 +14,14 @@ export default function ProjectDetails({
 	handleClose: () => any;
 	project: ProjectInterface;
 }) {
+	const [forceHide, setForceHide] = useState(false);
+
 	return (
-		<Modal show={show} size="xl" onHide={handleClose}>
+		<Modal
+			show={show && !forceHide}
+			size="xl"
+			onHide={() => setForceHide(true)}
+		>
 			<Modal.Body className="text-center">
 				<h3 className="text-center">{project.title}</h3>
 				<ImageContainer>

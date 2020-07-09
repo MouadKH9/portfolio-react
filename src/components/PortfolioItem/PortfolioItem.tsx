@@ -19,7 +19,8 @@ export default function PortfolioItem({
 	};
 
 	const handleClose = () => {
-		setShowDetails(true);
+		setShowDetails(false);
+		console.log("Closing...");
 	};
 
 	return (
