@@ -9,6 +9,7 @@ import { SiteInfo } from "./types";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import ServiceItem from "../../components/ServiceItem/ServiceItem";
+import Button from "react-bootstrap/Button";
 
 export default function About() {
 	const infoRef = useFirestore().collection("info").doc("main");
@@ -31,6 +32,18 @@ export default function About() {
 						</Col>
 					))}
 				</Row>
+				<Row className="pb-3 pt-5">
+					<Col
+						sm={{ span: 6, offset: 3 }}
+						md={{ span: 4, offset: 4 }}>
+						<Button
+							href="#contact"
+							className="w-100"
+							variant="outline-dark">
+							<i className="fas fa-envelope"></i> Contact me
+						</Button>
+					</Col>
+				</Row>
 			</Container>
 		</GlobalContainer>
 	);
@@ -44,6 +57,7 @@ const GlobalContainer = styled.div`
 
 const ParagraphTitle = styled.h4`
 	color: white;
+	text-decoration: underline;
 `;
 
 const Description = styled.p`
