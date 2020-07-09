@@ -19,7 +19,7 @@ export default function PortfolioItem({
 	};
 
 	const handleClose = () => {
-		setShowDetails(false);
+		setShowDetails(true);
 	};
 
 	return (
@@ -56,7 +56,11 @@ export default function PortfolioItem({
 					<TagImage key={index} name={tag} />
 				))}
 			</div>
-			<ProjectDetails show={showDetails} handleClose={handleClose} />
+			<ProjectDetails
+				project={project}
+				show={showDetails}
+				handleClose={handleClose}
+			/>
 		</ItemContainer>
 	);
 }

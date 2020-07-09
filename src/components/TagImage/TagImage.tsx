@@ -1,5 +1,7 @@
 import React from "react";
 import { Tags } from "./types";
+import OverlayTrigger from "react-bootstrap/OverlayTrigger";
+import Tooltip from "react-bootstrap/Tooltip";
 
 export default function TagImage({ name }: { name: string }) {
 	const tags: Tags = {
@@ -21,5 +23,28 @@ export default function TagImage({ name }: { name: string }) {
 		spring: "https://i.ya-webdesign.com/images/spring-logo-png-6.png",
 	};
 
-	return <img style={{ width: 30, margin: 5 }} src={tags[name]} alt={name} />;
+	const getAbbr = (name: string) =>
+		name.split(" ").length > 1
+			? name
+					.split(" ")
+					.reduce(
+						(prev, curr) => prev[0].toUpperCase() + curr[0].toUpperCase() + ""
+					)
+			: name[0].toUpperCase();
+
+	return (
+		<OverlayTrigger
+			placement="top"
+			overlay={<Tooltip id={`tooltip-${name}`}>{name}</Tooltip>}
+			trigger={["hover", "focus"]}
+		>
+			<>
+				{tags[name] ? (
+					<img style={{ width: 30, margin: 5 }} src={tags[name]} alt={name} />
+				) : (
+					<span className="mr-2">{getAbbr(name)}</span>
+				)}
+			</>
+		</OverlayTrigger>
+	);
 }
