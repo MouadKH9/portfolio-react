@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import SectionTitle from "../../components/SectionTitle/SectionTitle";
 import Container from "react-bootstrap/Container";
@@ -13,18 +13,21 @@ export default function Portfolio() {
 	const [showAll, setShowAll] = useState(false);
 
 	const projectsRef = useFirestore().collection("projects");
-	const projects = useFirestoreCollectionData(projectsRef);
+	const projects = useFirestoreCollectionData<ProjectInterface>(projectsRef);
+	console.log("Portfolio -> projects", projects);
 
 	return (
 		<PortfolioContainer id="portfolio">
 			<SectionTitle title="Portfolio" />
 			<Container fluid>
 				<Row>
-					{projects.slice(0, showAll ? projects.length : 3).map((project) => (
-						<Col sm={12} md={4} className="mb-2">
-							<PortfolioItem project={project} />
-						</Col>
-					))}
+					{projects
+						.slice(0, showAll ? projects.length : 3)
+						.map((project, index) => (
+							<Col key={index} sm={12} md={4} className="mb-2">
+								<PortfolioItem project={project} />
+							</Col>
+						))}
 				</Row>
 				{projects.length > 3 && (
 					<Row>

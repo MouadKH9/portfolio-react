@@ -36,7 +36,9 @@ export default function Header() {
 					</Navbar.Brand>
 					<NavContainer>
 						{headerItems.map((item: HeaderItem, index: number) => (
-							<NavButton href={item.link}>{item.title}</NavButton>
+							<NavButton key={index} href={item.link}>
+								{item.title}
+							</NavButton>
 						))}
 					</NavContainer>
 				</FullNavbar>
