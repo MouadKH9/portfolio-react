@@ -8,6 +8,7 @@ import { FirebaseAppProvider, SuspenseWithPerf } from "reactfire";
 import Loading from "./components/Loading/Loading";
 import About from "./parts/About/About";
 import Contact from "./parts/Contact/Contact";
+import Footer from "./parts/Footer/Footer";
 
 const firebaseConfig = {
 	apiKey: "AIzaSyCa0OKjjRPpNlGQy9N6T3_QjGRCDfjtHJI",
@@ -28,6 +29,7 @@ function App() {
 				<Portfolio />
 				<About />
 				<Contact />
+				<Footer />
 			</SuspenseWithPerf>
 		</FirebaseAppProvider>
 	);
