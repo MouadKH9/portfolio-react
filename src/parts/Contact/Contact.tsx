@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import SectionTitle from "../../components/SectionTitle/SectionTitle";
 import Container from "react-bootstrap/esm/Container";
 import styled from "styled-components";
@@ -10,10 +10,26 @@ import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import SocialMediaItem from "./SocialMediaItem";
+import { sendEmail } from "../../utils/mailing";
 
 export default function Contact() {
 	const infoRef = useFirestore().collection("info").doc("main");
 	const siteInfo = useFirestoreDocData<SiteInfo>(infoRef);
+
+	const [name, setName] = useState<string | null>();
+	const [number, setNumber] = useState<string | null>();
+	const [email, setEmail] = useState<string | null>();
+	const [message, setMessage] = useState<string | null>();
+
+	const submit = () => {
+		if (!name || !number || !email || !message) return;
+		sendEmail({
+			name,
+			number,
+			email,
+			message,
+		});
+	};
 
 	return (
 		<GlobalContainer id="portfolio">
@@ -27,7 +43,12 @@ export default function Contact() {
 								<Col md={6} sm={12}>
 									<Form.Group>
 										<Form.Label>Name *</Form.Label>
-										<Form.Control size="lg" type="text" placeholder="Name" />
+										<Form.Control
+											size="lg"
+											type="text"
+											placeholder="Name"
+											onChange={(event) => setName(event.target.value)}
+										/>
 									</Form.Group>
 								</Col>
 								<Col md={6} sm={12}>
@@ -37,13 +58,19 @@ export default function Contact() {
 											size="lg"
 											type="text"
 											placeholder="Phone number"
+											onChange={(event) => setNumber(event.target.value)}
 										/>
 									</Form.Group>
 								</Col>
 								<Col md={12} sm={12}>
 									<Form.Group>
 										<Form.Label>Email *</Form.Label>
-										<Form.Control size="lg" type="email" placeholder="Email" />
+										<Form.Control
+											size="lg"
+											type="email"
+											placeholder="Email"
+											onChange={(event) => setEmail(event.target.value)}
+										/>
 									</Form.Group>
 								</Col>
 								<Col md={12} sm={12}>
@@ -55,11 +82,18 @@ export default function Contact() {
 											rows={4}
 											type="message"
 											placeholder="Message"
+											onChange={(event) => setMessage(event.target.value)}
 										/>
 									</Form.Group>
 								</Col>
 								<Col sm={12}>
-									<Button className="w-100">Send</Button>
+									<Button
+										disabled={!name || !email || !message}
+										className="w-100"
+										onClick={submit}
+									>
+										Send
+									</Button>
 								</Col>
 							</Row>
 						</Form>
