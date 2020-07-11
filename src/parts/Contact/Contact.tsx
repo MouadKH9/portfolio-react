@@ -81,5 +81,5 @@ export default function Contact() {
 
 const GlobalContainer = styled.div`
 	width: 100%;
-	padding: 10px 0 20px 0;
+	padding: 10px 0 50px 0;
 `;
