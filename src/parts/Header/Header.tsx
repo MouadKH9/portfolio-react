@@ -66,6 +66,7 @@ export default function Header() {
 							>
 								<Link
 									onSetActive={() => setActive(item.link)}
+									onSetInactive={() => setActive("")}
 									to={item.link}
 									spy={true}
 									smooth={true}
