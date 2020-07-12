@@ -48,7 +48,7 @@ export default function Contact() {
 	};
 
 	return (
-		<GlobalContainer id="portfolio">
+		<GlobalContainer id="contact">
 			<SectionTitle title="Contact me" theme="light" />
 			<Container>
 				<Row>
@@ -129,7 +129,9 @@ export default function Contact() {
 						</Form>
 					</Col>
 					<Col lg={6} sm={12}>
-						<h3 className="text-center mb-3 text-dark">Or find me online</h3>
+						<Title className="text-center mb-3 text-dark">
+							Or find me online
+						</Title>
 						<div className="p-5">
 							{siteInfo.socialMedia &&
 								siteInfo.socialMedia.map((social, index) => (
@@ -158,4 +160,10 @@ const Success = styled.h6`
 	color: ${colors.success};
 	text-align: center;
 	margin-top: 5px;
+`;
+
+const Title = styled.h3`
+	@media (max-width: 650px) {
+		margin-top: 20px;
+	}
 `;

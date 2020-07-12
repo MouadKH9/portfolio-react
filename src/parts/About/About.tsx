@@ -16,7 +16,7 @@ export default function About() {
 	const siteInfo = useFirestoreDocData<SiteInfo>(infoRef);
 
 	return (
-		<GlobalContainer id="portfolio">
+		<GlobalContainer id="about">
 			<SectionTitle title="About" theme="primary" />
 			<Container>
 				<ParagraphTitle>Who am I?</ParagraphTitle>
@@ -36,7 +36,11 @@ export default function About() {
 				</Row>
 				<Row className="pb-3 pt-5">
 					<Col sm={{ span: 6, offset: 3 }} md={{ span: 4, offset: 4 }}>
-						<Button href="#contact" className="w-100" variant="outline-dark">
+						<Button
+							href="#contact"
+							className="w-100 bold"
+							variant="outline-dark"
+						>
 							<i className="fas fa-envelope"></i> Contact me
 						</Button>
 					</Col>

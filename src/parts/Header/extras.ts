@@ -19,6 +19,10 @@ export const HeaderContainer = styled.header`
 export const FullNavbar = styled(Navbar)`
 	width: 100%;
 	justify-content: space-between;
+
+	@media (max-width: 650px) {
+		flex-direction: column;
+	}
 `;
 
 export const Logo = styled.img`

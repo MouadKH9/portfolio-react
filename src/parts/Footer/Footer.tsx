@@ -12,14 +12,14 @@ export default function Footer() {
 			<Section>
 				<Container>
 					<Row>
-						<Col md={4}>
+						<Part md={4}>
 							<Title>Location</Title>
 							<Text>Tangier, Morocco</Text>
-						</Col>
-						<Col md={4} className="text-center">
+						</Part>
+						<Part md={4} className="text-center">
 							<Logo src={LogoImage} />
-						</Col>
-						<Col md={4} className="text-center">
+						</Part>
+						<Part md={4} className="text-center">
 							<Title>Around the Web</Title>
 							<ul className="list-inline">
 								<ListItem className="list-inline-item">
@@ -27,7 +27,8 @@ export default function Footer() {
 										target="_blank"
 										rel="noopener noreferrer"
 										className="btn btn-outline-light btn-social text-center rounded-circle"
-										href="https://www.facebook.com/Mouaaad29">
+										href="https://www.facebook.com/Mouaaad29"
+									>
 										<i className="fab fa-fw fa-facebook-f"></i>
 									</a>
 								</ListItem>
@@ -36,7 +37,8 @@ export default function Footer() {
 										target="_blank"
 										rel="noopener noreferrer"
 										className="btn btn-outline-light btn-social text-center rounded-circle"
-										href="https://github.com/MouadKH9/">
+										href="https://github.com/MouadKH9/"
+									>
 										<i className="fab fa-fw fa-github"></i>
 									</a>
 								</ListItem>
@@ -45,12 +47,13 @@ export default function Footer() {
 										target="_blank"
 										rel="noopener noreferrer"
 										className="btn btn-outline-light btn-social text-center rounded-circle"
-										href="https://www.linkedin.com/in/MouadK">
+										href="https://www.linkedin.com/in/MouadK"
+									>
 										<i className="fab fa-fw fa-linkedin-in"></i>
 									</a>
 								</ListItem>
 							</ul>
-						</Col>
+						</Part>
 					</Row>
 				</Container>
 			</Section>
@@ -94,5 +97,11 @@ const ListItem = styled.li`
 	a {
 		font-size: 1.2em !important;
 		cursor: pointer;
+	}
+`;
+
+const Part = styled(Col)`
+	@media (max-width: 650px) {
+		margin-top: 40px;
 	}
 `;

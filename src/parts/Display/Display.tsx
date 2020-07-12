@@ -25,6 +25,10 @@ const TextContainer = styled.div`
 	background-color: rgba(255, 255, 255, 0.1);
 	padding: 10px;
 	border-radius: 20px;
+
+	@media (max-width: 650px) {
+		width: 100%;
+	}
 `;
 
 const Title = styled.h1`
@@ -33,6 +37,10 @@ const Title = styled.h1`
 	font-weight: 800;
 	text-align: center;
 	text-transform: uppercase;
+
+	@media (max-width: 650px) {
+		font-size: 3em;
+	}
 `;
 
 const Subtitle = styled.h3`

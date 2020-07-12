@@ -46,3 +46,9 @@
 .laptop-content {
 	overflow: hidden;
 }
+
+@media (max-width: 650px) {
+	.laptop {
+		height: 180px;
+	}
+}
