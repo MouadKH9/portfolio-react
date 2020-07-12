@@ -1,39 +1,26 @@
-export function sendEmail({ name, email, number, message }: MailData) {
-	const mailjet = require("node-mailjet").connect(
-		process.env.MJ_APIKEY_PUBLIC,
-		process.env.MJ_APIKEY_PRIVATE
-	);
-	const request = mailjet.post("send", { version: "v3.1" }).request({
-		Messages: [
-			{
-				From: {
-					Email: process.env.FROM_EMAIL,
-					Name: process.env.FROM_NAME,
-				},
-				To: [
-					{
-						Email: email,
-						Name: name,
-					},
-				],
-				Subject: "Portfolio contact form",
-				HtmlPart: `
-                    <strong>Name: </strong> ${name} <br/>
-                    <strong>Number: </strong> ${number || "-"} <br/>
-                    <strong>Email: </strong> ${email} <br/>
-                    <strong>Message: </strong> ${message} <br/>
-                `,
+import axios from "axios";
+
+export async function sendEmail(data: MailData) {
+	try {
+		const formData = new FormData();
+		Object.keys(data).forEach((key) =>
+			formData.append(key, (data as any)[key])
+		);
+		const config = {
+			headers: {
+				"content-type": "multipart/form-data",
 			},
-		],
-	});
-	request
-		.then((result: any) => {
-			console.log(result.body);
-		})
-		.catch((err: any) => {
-			console.log("err", err);
-			console.log(err.statusCode);
-		});
+		};
+		await axios.post(
+			`http://www.mouadk.xyz/php/mail/contact_me.php`,
+			formData,
+			config
+		);
+		return true;
+	} catch (error) {
+		// Even when we receive an error, it's successful 🤷‍♂️
+		return true;
+	}
 }
 
 export interface MailData {

@@ -11,24 +11,40 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import SocialMediaItem from "./SocialMediaItem";
 import { sendEmail } from "../../utils/mailing";
+import colors from "../../utils/colors";
 
 export default function Contact() {
 	const infoRef = useFirestore().collection("info").doc("main");
 	const siteInfo = useFirestoreDocData<SiteInfo>(infoRef);
+
+	const [error, setError] = useState(false);
+	const [success, setSuccess] = useState(false);
 
 	const [name, setName] = useState<string | null>();
 	const [number, setNumber] = useState<string | null>();
 	const [email, setEmail] = useState<string | null>();
 	const [message, setMessage] = useState<string | null>();
 
-	const submit = () => {
+	const submit = async () => {
 		if (!name || !number || !email || !message) return;
-		sendEmail({
+		const status = await sendEmail({
 			name,
 			number,
 			email,
 			message,
 		});
+		if (!status) return setError(true);
+
+		setSuccess(true);
+		setName(null);
+		setNumber(null);
+		setEmail(null);
+		setMessage(null);
+	};
+
+	const isEmail = (email: string) => {
+		const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+		return re.test(String(email).toLowerCase());
 	};
 
 	return (
@@ -46,6 +62,7 @@ export default function Contact() {
 										<Form.Control
 											size="lg"
 											type="text"
+											value={name || ""}
 											placeholder="Name"
 											onChange={(event) => setName(event.target.value)}
 										/>
@@ -58,6 +75,7 @@ export default function Contact() {
 											size="lg"
 											type="text"
 											placeholder="Phone number"
+											value={number || ""}
 											onChange={(event) => setNumber(event.target.value)}
 										/>
 									</Form.Group>
@@ -69,6 +87,7 @@ export default function Contact() {
 											size="lg"
 											type="email"
 											placeholder="Email"
+											value={email || ""}
 											onChange={(event) => setEmail(event.target.value)}
 										/>
 									</Form.Group>
@@ -80,6 +99,7 @@ export default function Contact() {
 											size="lg"
 											as="textarea"
 											rows={4}
+											value={message || ""}
 											type="message"
 											placeholder="Message"
 											onChange={(event) => setMessage(event.target.value)}
@@ -88,12 +108,22 @@ export default function Contact() {
 								</Col>
 								<Col sm={12}>
 									<Button
-										disabled={!name || !email || !message}
+										disabled={!name || !email || !message || !isEmail(email)}
 										className="w-100"
 										onClick={submit}
 									>
 										Send
 									</Button>
+									{error && (
+										<Error>
+											There was an error sending your message, try again later.
+										</Error>
+									)}
+									{success && (
+										<Success>
+											I have received your message! thank you for reaching out.
+										</Success>
+									)}
 								</Col>
 							</Row>
 						</Form>
@@ -116,4 +146,16 @@ export default function Contact() {
 const GlobalContainer = styled.div`
 	width: 100%;
 	padding: 10px 0 50px 0;
+`;
+
+const Error = styled.h6`
+	color: ${colors.danger};
+	text-align: center;
+	margin-top: 5px;
+`;
+
+const Success = styled.h6`
+	color: ${colors.success};
+	text-align: center;
+	margin-top: 5px;
 `;
