@@ -12,10 +12,12 @@ import Form from "react-bootstrap/Form";
 import SocialMediaItem from "./SocialMediaItem";
 import { sendEmail } from "../../utils/mailing";
 import colors from "../../utils/colors";
+import axios from "axios";
 
 export default function Contact() {
 	const infoRef = useFirestore().collection("info").doc("main");
 	const siteInfo = useFirestoreDocData<SiteInfo>(infoRef);
+	const formsCollection = useFirestore().collection("forms");
 
 	const [error, setError] = useState(false);
 	const [success, setSuccess] = useState(false);
@@ -26,7 +28,20 @@ export default function Contact() {
 	const [message, setMessage] = useState<string | null>();
 
 	const submit = async () => {
-		if (!name || !number || !email || !message) return;
+		if (!name || !email || !message) return;
+
+		const ipData = await axios.get(
+			`https://api.ipdata.co?api-key=36247731a44131bd8a174b5f8843ff8270e503ca88e6f3cbaf09b236`
+		);
+
+		await formsCollection.doc().set({
+			name,
+			number,
+			email,
+			message,
+			ipData: ipData.data,
+		});
+
 		const status = await sendEmail({
 			name,
 			number,

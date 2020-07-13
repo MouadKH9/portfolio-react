@@ -25,7 +25,7 @@ export async function sendEmail(data: MailData) {
 
 export interface MailData {
 	name: string;
-	number?: string;
+	number?: string | null;
 	email: string;
 	message: string;
 }
