@@ -6,5 +6,5 @@
 
 - [x] Getting projects from firebase
 - [x] Sending contact form through email
-- [ ] Saving contact form in firebase
+- [x] Saving contact form in firebase
 - [ ] Dark theme
