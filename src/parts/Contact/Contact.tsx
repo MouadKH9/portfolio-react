@@ -31,7 +31,7 @@ export default function Contact() {
 		if (!name || !email || !message) return;
 
 		const ipData = await axios.get(
-			`https://api.ipdata.co?api-key=36247731a44131bd8a174b5f8843ff8270e503ca88e6f3cbaf09b236`
+			`https://api.ipdata.co?api-key=${process.env.REACT_APP_IPDATA_KEY}`
 		);
 
 		await formsCollection.doc().set({
@@ -40,6 +40,7 @@ export default function Contact() {
 			email,
 			message,
 			ipData: ipData.data,
+			date: new Date(),
 		});
 
 		const status = await sendEmail({
