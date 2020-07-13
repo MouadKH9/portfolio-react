@@ -9,17 +9,8 @@ import Loading from "./components/Loading/Loading";
 import About from "./parts/About/About";
 import Contact from "./parts/Contact/Contact";
 import Footer from "./parts/Footer/Footer";
+import firebaseConfig from "./firebase-config.json";
 
-const firebaseConfig = {
-	apiKey: "AIzaSyCa0OKjjRPpNlGQy9N6T3_QjGRCDfjtHJI",
-	authDomain: "portfolio-70e7c.firebaseapp.com",
-	databaseURL: "https://portfolio-70e7c.firebaseio.com",
-	projectId: "portfolio-70e7c",
-	storageBucket: "portfolio-70e7c.appspot.com",
-	messagingSenderId: "508587837695",
-	appId: "1:508587837695:web:329ac2a99d54ad18fa24ca",
-	measurementId: "G-K8TP700GQH",
-};
 function App() {
 	return (
 		<FirebaseAppProvider firebaseConfig={firebaseConfig}>
