@@ -1,28 +1,33 @@
 import React from "react";
-import Header from "./parts/Header/Header";
 
-import Display from "./parts/Display/Display";
-import Portfolio from "./parts/Portfolio/Portfolio";
+import { useAuth } from "reactfire";
 
-import { FirebaseAppProvider, SuspenseWithPerf } from "reactfire";
-import Loading from "./components/Loading/Loading";
-import About from "./parts/About/About";
-import Contact from "./parts/Contact/Contact";
-import Footer from "./parts/Footer/Footer";
-import firebaseConfig from "./firebase-config.json";
+import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
+import MainLayout from "./MainLayout";
+import AdminLayout from "./AdminLayout";
+import Login from "./Login";
 
 function App() {
+	const auth = useAuth();
+
 	return (
-		<FirebaseAppProvider firebaseConfig={firebaseConfig}>
-			<SuspenseWithPerf fallback={<Loading />} traceId="main-suspense">
-				<Header />
-				<Display />
-				<Portfolio />
-				<About />
-				<Contact />
-				<Footer />
-			</SuspenseWithPerf>
-		</FirebaseAppProvider>
+		<Router>
+			<Route path="/" exact component={MainLayout} />
+			<Route
+				path="/login"
+				render={() => (!auth.currentUser ? <Login /> : <Redirect to="/" />)}
+			/>
+			<Route
+				path="/admin"
+				render={() =>
+					auth.currentUser ? <AdminLayout /> : <Redirect to="/" />
+				}
+			/>
+			{/* {!auth.currentUser ? (
+				) : (
+					<Redirect to="/" />
+			)} */}
+		</Router>
 	);
 }
 
