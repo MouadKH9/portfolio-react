@@ -10,7 +10,7 @@ import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import SocialMediaItem from "./SocialMediaItem";
-import { sendEmail } from "../../utils/mailing";
+import { sendEmail, isEmail } from "../../utils/mailing";
 import colors from "../../utils/colors";
 import axios from "axios";
 
@@ -56,11 +56,6 @@ export default function Contact() {
 		setNumber(null);
 		setEmail(null);
 		setMessage(null);
-	};
-
-	const isEmail = (email: string) => {
-		const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-		return re.test(String(email).toLowerCase());
 	};
 
 	return (
