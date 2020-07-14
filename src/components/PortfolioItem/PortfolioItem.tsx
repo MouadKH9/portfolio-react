@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { ProjectInterface } from "../../parts/Portfolio/types";
 import "./PortfolioItem.css";
 import TagImage from "../TagImage/TagImage";
@@ -22,6 +22,10 @@ export default function PortfolioItem({
 		setShowDetails(false);
 		console.log("Closing...");
 	};
+
+	useEffect(() => {
+		console.log("showDetails", showDetails);
+	}, [showDetails]);
 
 	return (
 		<ItemContainer onClick={clicked}>

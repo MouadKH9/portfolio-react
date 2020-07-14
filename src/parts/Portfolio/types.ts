@@ -5,4 +5,5 @@ export interface ProjectInterface {
 	date: string;
 	tags: string[];
 	link?: string;
+	order: number;
 }

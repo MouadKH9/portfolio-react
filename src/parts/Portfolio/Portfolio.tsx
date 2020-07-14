@@ -21,6 +21,7 @@ export default function Portfolio() {
 			<Container fluid>
 				<Row>
 					{projects
+						.sort((a, b) => a.order - b.order)
 						.slice(0, showAll ? projects.length : 3)
 						.map((project, index) => (
 							<Col key={index} sm={12} md={4} className="mb-2">
