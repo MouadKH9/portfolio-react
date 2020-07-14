@@ -9,13 +9,23 @@ import Col from "react-bootstrap/esm/Col";
 import Form from "react-bootstrap/esm/Form";
 import Button from "react-bootstrap/esm/Button";
 import { isEmail } from "./utils/mailing";
+import { useAuth } from "reactfire";
 
 export default function Login() {
-	const [email, setEmail] = useState();
-	const [password, setPassword] = useState();
+	const auth = useAuth();
+
+	const [email, setEmail] = useState("");
+	const [password, setPassword] = useState("");
 	const [error, setError] = useState(false);
 
-	const submit = () => {};
+	const submit = async () => {
+		try {
+			const status = await auth.signInWithEmailAndPassword(email, password);
+			console.log("submit -> response", status);
+		} catch (error) {
+			setError(true);
+		}
+	};
 
 	return (
 		<Body className="animate-bg">
