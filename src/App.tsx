@@ -1,6 +1,6 @@
 import React from "react";
 
-import { useAuth, useUser } from "reactfire";
+import { useUser } from "reactfire";
 
 import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 import MainLayout from "./MainLayout";
@@ -21,10 +21,6 @@ function App() {
 				path="/admin"
 				render={() => (user ? <AdminLayout /> : <Redirect to="/" />)}
 			/>
-			{/* {!auth.currentUser ? (
-				) : (
-					<Redirect to="/" />
-			)} */}
 		</Router>
 	);
 }
