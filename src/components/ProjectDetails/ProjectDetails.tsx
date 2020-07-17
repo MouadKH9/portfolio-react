@@ -28,7 +28,7 @@ export default function ProjectDetails({
 					)}
 					<Description>{project.description}</Description>
 					<div>
-						{project.tags.map((tag: string, index: number) => (
+						{project.tags?.map((tag: string, index: number) => (
 							<TagImage key={index} name={tag} />
 						))}
 					</div>

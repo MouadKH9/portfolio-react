@@ -1,30 +1,68 @@
 import React from "react";
-import Card from "react-bootstrap/esm/Card";
-import styled from "styled-components";
-import Container from "react-bootstrap/esm/Container";
+import AdminCard from "./components/Admin/AdminCard/AdminCard";
+import { useFirestoreCollectionData, useFirestore } from "reactfire";
+import { ProjectInterface } from "./parts/Portfolio/types";
+import ProjectItem from "./components/Admin/Project/ProjectItem";
+import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
 export default function AdminLayout() {
+	const projectsRef = useFirestore().collection("projects");
+	const projects = useFirestoreCollectionData<ProjectInterface>(projectsRef);
+
+	const onDragEnd = (result: any) => {
+		// dropped outside the list
+		if (!result.destination) {
+			return;
+		}
+
+		const items = reorder(
+			projects,
+			result.source.index,
+			result.destination.index
+		);
+		console.log("onDragEnd -> items", items);
+	};
+
 	return (
-		<Body className="animate-bg">
-			<CenteredContainer>
-				<Card>
-					<Card.Header>Projects Management</Card.Header>
-					<Card.Body></Card.Body>
-				</Card>
-			</CenteredContainer>
-		</Body>
+		<AdminCard title="Projects Management">
+			<DragDropContext onDragEnd={onDragEnd}>
+				<Droppable droppableId="droppable">
+					{(provided: any, snapshot: any) => (
+						<div {...provided.droppableProps} ref={provided.innerRef}>
+							{projects.map((project, index) => (
+								<Draggable
+									key={index}
+									draggableId={index.toString()}
+									index={index}
+								>
+									{(provided: any, snapshot: any) => (
+										<div
+											ref={provided.innerRef}
+											{...provided.draggableProps}
+											{...provided.dragHandleProps}
+										>
+											<ProjectItem project={project} />
+										</div>
+									)}
+								</Draggable>
+							))}
+							{provided.placeholder}
+						</div>
+					)}
+				</Droppable>
+			</DragDropContext>
+		</AdminCard>
 	);
 }
+// a little function to help us with reordering the result
+const reorder = (
+	projects: ProjectInterface[],
+	startIndex: number,
+	endIndex: number
+) => {
+	const result = Array.from(projects);
+	const [removed] = result.splice(startIndex, 1);
+	result.splice(endIndex, 0, removed);
 
-const Body = styled.div`
-	height: 100vh;
-	width: 100vw;
-`;
-
-const CenteredContainer = styled(Container)`
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	width: 70%;
-`;
+	return result;
+};

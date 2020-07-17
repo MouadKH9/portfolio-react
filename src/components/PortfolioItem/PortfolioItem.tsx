@@ -52,7 +52,7 @@ export default function PortfolioItem({
 			</OverlayTrigger>
 			<h3 className="text-center bold mt-3 text-dark">{project.title}</h3>
 			<div>
-				{project.tags.map((tag: string, index: number) => (
+				{project.tags?.map((tag: string, index: number) => (
 					<TagImage key={index} name={tag} />
 				))}
 			</div>
