@@ -21,7 +21,7 @@ export default function ProjectItem({
 			<Col lg={2} md={3} sm={6}>
 				{project.views || 0} Views
 			</Col>
-			<Col lg={2} md={3} sm={6}>
+			<Col lg={2} md={3} sm={6} style={{ textAlign: "right" }}>
 				<Button style={{ marginLeft: 10 }} variant="primary">
 					<i className="fas fa-pen"></i>
 				</Button>
