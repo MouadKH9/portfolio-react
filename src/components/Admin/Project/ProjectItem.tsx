@@ -12,13 +12,16 @@ export default function ProjectItem({
 }) {
 	return (
 		<Row style={{ marginBottom: 10, alignItems: "center" }}>
-			<Col lg={10} md={8} sm={12}>
-				<h5>
-					<Handle className="fas fa-grip-lines mr-2 handle"></Handle>
-					{project.title}
-				</h5>
+			<Col lg={6} md={6} sm={12}>
+				<h5>{project.title}</h5>
 			</Col>
-			<Col lg={2} md={4} sm={12}>
+			<Col lg={2} md={3} sm={6}>
+				{project.date}
+			</Col>
+			<Col lg={2} md={3} sm={6}>
+				{project.views || 0} Views
+			</Col>
+			<Col lg={2} md={3} sm={6}>
 				<Button style={{ marginLeft: 10 }} variant="primary">
 					<i className="fas fa-pen"></i>
 				</Button>
@@ -29,7 +32,3 @@ export default function ProjectItem({
 		</Row>
 	);
 }
-
-const Handle = styled.i`
-	cursor: pointer;
-`;
