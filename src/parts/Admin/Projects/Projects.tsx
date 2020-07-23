@@ -12,11 +12,16 @@ import { Link } from "react-router-dom";
 
 export default function Projects() {
 	const projectsRef = useFirestore().collection("projects");
-	const projectDocs = useFirestoreCollectionData<ProjectInterface>(projectsRef);
+	const projectDocs = useFirestoreCollectionData<ProjectInterface>(
+		projectsRef
+	);
 	return (
 		<Container>
 			<Row>
-				<Col sm={12} md={{ span: 2, offset: 10 }}>
+				<Col
+					sm={12}
+					md={{ span: 3, offset: 9 }}
+					lg={{ span: 2, offset: 10 }}>
 					<Link to="/admin/add-project">
 						<Button className="mb-3 w-100">
 							<i className="fas fa-plus-circle mr-1"></i>
