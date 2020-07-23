@@ -11,6 +11,8 @@ import Row from "react-bootstrap/esm/Row";
 import Col from "react-bootstrap/esm/Col";
 import colors from "../../../utils/colors";
 import styled from "styled-components";
+import { ProjectInterface } from "../../Portfolio/types";
+import { format } from "date-fns";
 
 export default function AddProject() {
 	const [title, setTitle] = useState("");
@@ -32,9 +34,23 @@ export default function AddProject() {
 		setTags(clonedTags);
 	};
 
+	const getNextOrder = ()
+
 	const addProject = (event: any) => {
 		event.preventDefault();
-		const desc = draftToHtml(convertToRaw(editorState.getCurrentContent()));
+		const description = draftToHtml(
+			convertToRaw(editorState.getCurrentContent())
+		);
+
+		const project: ProjectInterface = {
+			title,
+			description,
+			date: format(new Date(), "dd-MM-yyyy"),
+			tags,
+			image: "",
+			order: getNextOrder(),
+		};
+		console.log("addProject -> project", project);
 	};
 	return (
 		<Container>
