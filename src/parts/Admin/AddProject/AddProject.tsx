@@ -13,12 +13,20 @@ import colors from "../../../utils/colors";
 import styled from "styled-components";
 import { ProjectInterface } from "../../Portfolio/types";
 import { format } from "date-fns";
+import { useFirestore, useFirestoreCollectionData } from "reactfire";
+import { shiftProjects } from "../../../utils/firebaseUtills";
 
 export default function AddProject() {
+	const projectsRef = useFirestore()
+		.collection("projects")
+		.orderBy("order", "desc");
+	const projectDocs = useFirestoreCollectionData<ProjectInterface>(projectsRef);
+
 	const [title, setTitle] = useState("");
 	const [tags, setTags] = useState<string[]>([]);
 	const [tagsText, setTagsText] = useState("");
 	const [link, setLink] = useState("");
+	const [atStart, setAtStart] = useState(false);
 	const [editorState, setEditorState] = useState(EditorState.createEmpty());
 
 	const tagsKeyUp = (ev: React.KeyboardEvent) => {
@@ -34,21 +42,21 @@ export default function AddProject() {
 		setTags(clonedTags);
 	};
 
-	const getNextOrder = ()
+	const getNextOrder = () => projectDocs[0].order + 1;
 
-	const addProject = (event: any) => {
+	const addProject = async (event: any) => {
 		event.preventDefault();
 		const description = draftToHtml(
 			convertToRaw(editorState.getCurrentContent())
 		);
-
+		// if (atStart) await shiftProjects(projectsRef);
 		const project: ProjectInterface = {
 			title,
 			description,
 			date: format(new Date(), "dd-MM-yyyy"),
 			tags,
 			image: "",
-			order: getNextOrder(),
+			order: atStart ? 1 : getNextOrder(),
 		};
 		console.log("addProject -> project", project);
 	};
@@ -63,9 +71,7 @@ export default function AddProject() {
 								type="text"
 								placeholder="Title"
 								value={title}
-								onChange={(ev: any) =>
-									setTitle(ev.target.value)
-								}
+								onChange={(ev: any) => setTitle(ev.target.value)}
 							/>
 						</Form.Group>
 					</Col>
@@ -74,9 +80,7 @@ export default function AddProject() {
 							<Form.Label>Description</Form.Label>
 							<Editor
 								editorState={editorState}
-								onEditorStateChange={(state) =>
-									setEditorState(state)
-								}
+								onEditorStateChange={(state) => setEditorState(state)}
 							/>
 						</Form.Group>
 					</Col>
@@ -87,15 +91,14 @@ export default function AddProject() {
 								type="text"
 								placeholder="Separate your tags with a comma"
 								value={tagsText}
-								onChange={(ev: any) =>
-									setTagsText(ev.target.value)
-								}
+								onChange={(ev: any) => setTagsText(ev.target.value)}
 								onKeyUp={tagsKeyUp}
 							/>
 							<TagContainer>
 								{tags.map((tag, index) => (
 									<Tag onClick={removeTag(index)}>{tag}</Tag>
 								))}
+								{!tags.length && <Info>Your tags will appear here..</Info>}
 							</TagContainer>
 						</Form.Group>
 					</Col>
@@ -108,6 +111,15 @@ export default function AddProject() {
 								value={link}
 								onChange={(ev: any) => setLink(ev.target.value)}
 							/>
+							<TagContainer>
+								<Form.Group controlId="formBasicCheckbox">
+									<Form.Check
+										type="checkbox"
+										label="Add at the start"
+										onChange={() => setAtStart(!atStart)}
+									/>
+								</Form.Group>
+							</TagContainer>
 						</Form.Group>
 					</Col>
 				</Row>
@@ -117,7 +129,9 @@ export default function AddProject() {
 							variant="primary"
 							type="submit"
 							className="w-100 my-2"
-							onClick={addProject}>
+							onClick={addProject}
+							disabled={!title || tags.length === 0}
+						>
 							Add
 						</Button>
 					</Col>
@@ -143,4 +157,8 @@ const Tag = styled.span`
 	&:hover {
 		background-color: ${colors.lighterDark};
 	}
+`;
+
+const Info = styled.span`
+	color: lightgray;
 `;

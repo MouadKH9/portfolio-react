@@ -3,7 +3,6 @@ import { ProjectInterface } from "../../../parts/Portfolio/types";
 import Row from "react-bootstrap/esm/Row";
 import Col from "react-bootstrap/esm/Col";
 import Button from "react-bootstrap/esm/Button";
-import styled from "styled-components";
 
 export default function ProjectItem({
 	project,
