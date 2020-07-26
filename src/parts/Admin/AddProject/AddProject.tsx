@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Container from "react-bootstrap/esm/Container";
 import Form from "react-bootstrap/esm/Form";
 import Button from "react-bootstrap/esm/Button";
+import { useHistory } from "react-router-dom";
 
 import { EditorState, convertToRaw } from "draft-js";
 import { Editor } from "react-draft-wysiwyg";
@@ -21,10 +22,12 @@ import {
 import { shiftProjects } from "../../../utils/firebaseUtills";
 
 export default function AddProject() {
-	const projectsRef = useFirestore()
-		.collection("projects")
-		.orderBy("order", "desc");
-	const projectDocs = useFirestoreCollectionData<ProjectInterface>(projectsRef);
+	const history = useHistory();
+
+	const projectsRef = useFirestore().collection("projects");
+	const projectDocs = useFirestoreCollectionData<ProjectInterface>(
+		projectsRef.orderBy("order", "desc")
+	);
 	const storage = useStorage();
 
 	const [title, setTitle] = useState("");
@@ -63,7 +66,7 @@ export default function AddProject() {
 		const description = draftToHtml(
 			convertToRaw(editorState.getCurrentContent())
 		);
-		if (atStart) await shiftProjects(projectsRef);
+		if (atStart) await shiftProjects(projectsRef.orderBy("order", "desc"), 1);
 		const project: ProjectInterface = {
 			title,
 			description,
@@ -72,8 +75,9 @@ export default function AddProject() {
 			image: imageAsFile ? await uploadImage(imageAsFile) : null,
 			order: atStart ? 1 : getNextOrder(),
 		};
-		console.log("addProject -> project", project);
+		await projectsRef.doc().set(project);
 		setLoading(false);
+		history.push("/admin");
 	};
 
 	const uploadImage = (file: any): Promise<string | null> => {
@@ -84,7 +88,7 @@ export default function AddProject() {
 				(snapshot) => {
 					const progress =
 						(snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-					setProgress(progress);
+					setProgress(Math.ceil(progress));
 				},
 				(error) => {
 					console.log("AddProject -> error", error);
