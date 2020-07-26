@@ -3,7 +3,7 @@ import Modal from "react-bootstrap/Modal";
 import { ProjectInterface } from "../../parts/Portfolio/types";
 import styled from "styled-components";
 import TagImage from "../TagImage/TagImage";
-
+import parse from "html-react-parser";
 export default function ProjectDetails({
 	show,
 	handleClose,
@@ -26,7 +26,7 @@ export default function ProjectDetails({
 							<i className="fa fa-link" aria-hidden="true"></i> Link
 						</a>
 					)}
-					<Description>{project.description}</Description>
+					<Description>{parse(project.description)}</Description>
 					<div>
 						{project.tags?.map((tag: string, index: number) => (
 							<TagImage key={index} name={tag} />
