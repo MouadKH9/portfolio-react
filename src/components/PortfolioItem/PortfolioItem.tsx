@@ -38,8 +38,8 @@ export default function PortfolioItem({
 						<div className="laptop-content">
 							<img
 								className="img-fluid"
-								src={project.image}
-								alt=""
+								src={project.image || ""}
+								alt="Thumbnail"
 								data-top="0"
 								style={{ top: 0 }}
 							/>
