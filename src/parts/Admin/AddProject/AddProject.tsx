@@ -66,7 +66,7 @@ export default function AddProject() {
 		const description = draftToHtml(
 			convertToRaw(editorState.getCurrentContent())
 		);
-		if (atStart) await shiftProjects(projectsRef.orderBy("order", "desc"), 1);
+		// if (atStart) await shiftProjects(projectsRef.orderBy("order", "desc"), 1);
 		const project: ProjectInterface = {
 			title,
 			description,
