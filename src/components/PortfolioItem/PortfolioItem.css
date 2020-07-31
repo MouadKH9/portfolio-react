@@ -1,6 +1,6 @@
 .laptop {
 	width: 100%;
-	height: 220px;
+	height: 270px;
 }
 .laptop .laptop-screen {
 	position: relative;
@@ -49,6 +49,11 @@
 
 @media (max-width: 900px) {
 	.laptop {
-		height: 180px;
+		height: 160px;
+	}
+}
+@media (max-width: 1300px) {
+	.laptop {
+		height: 200px;
 	}
 }
