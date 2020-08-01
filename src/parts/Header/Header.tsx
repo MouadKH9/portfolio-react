@@ -31,6 +31,10 @@ export default function Header() {
 			title: "Contact",
 			link: "contact",
 		},
+		{
+			title: "Blog",
+			link: "blog",
+		},
 	];
 
 	const listenToScroll = () => {
@@ -48,6 +52,12 @@ export default function Header() {
 			window.removeEventListener("scroll", listenToScroll);
 		};
 	}, []);
+
+	const linkClicked = (link: string) => () => {
+		if (link !== "blog") return;
+		let win = window.open("https://dev.to/mouadkh9", "_blank");
+		if (win) win.focus();
+	};
 
 	return (
 		<HeaderContainer color={showBackground ? colors.dark : "transparent"}>
@@ -71,6 +81,7 @@ export default function Header() {
 									spy={true}
 									smooth={true}
 									offset={-70}
+									onClick={linkClicked(item.link)}
 									duration={500}
 								>
 									{item.title}
