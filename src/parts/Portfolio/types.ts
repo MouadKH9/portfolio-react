@@ -1,6 +1,6 @@
 export interface ProjectInterface {
 	title: string;
-	image: string | null;
+	images: string[];
 	description: string;
 	date: string;
 	tags: string[];

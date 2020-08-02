@@ -19,7 +19,11 @@ export default function ProjectDetails({
 				<Modal.Body className="text-center">
 					<h3 className="text-center">{project.title}</h3>
 					<ImageContainer>
-						<img className="w-100" src={project.image || ""} alt="Screenshot" />
+						<img
+							className="w-100"
+							src={project.images[0] || ""}
+							alt="Screenshot"
+						/>
 					</ImageContainer>
 					{project.link && (
 						<a target="_blank" rel="noopener noreferrer" href={project.link}>

@@ -36,7 +36,7 @@ export default function AddProject() {
 	const [link, setLink] = useState("");
 	const [atStart, setAtStart] = useState(false);
 	const [editorState, setEditorState] = useState(EditorState.createEmpty());
-	const [imageAsFile, setImageAsFile] = useState();
+	const [imagesAsFile, setImagesAsFile] = useState<any[]>([]);
 	const [loading, setLoading] = useState(false);
 	const [progress, setProgress] = useState(0);
 
@@ -54,8 +54,7 @@ export default function AddProject() {
 	};
 
 	const handleImageAsFile = (e: any) => {
-		const image = e.target.files[0];
-		setImageAsFile(image);
+		setImagesAsFile(e.target.files);
 	};
 
 	const getNextOrder = () => projectDocs[0].order + 1;
@@ -72,7 +71,7 @@ export default function AddProject() {
 			description,
 			date: format(new Date(), "dd-MM-yyyy"),
 			tags,
-			image: imageAsFile ? await uploadImage(imageAsFile) : null,
+			images: await getImages(),
 			order: atStart ? 1 : getNextOrder(),
 		};
 		await projectsRef.doc().set(project);
@@ -80,28 +79,36 @@ export default function AddProject() {
 		history.push("/admin");
 	};
 
-	const uploadImage = (file: any): Promise<string | null> => {
+	const getImages = async () => {
+		if (imagesAsFile.length === 0) return [];
+
+		return await uploadImages();
+	};
+
+	const uploadImages = (): Promise<string[]> => {
 		return new Promise((resolve, reject) => {
-			const uploadTask = storage.ref(`images/${file.name}`).put(file);
-			uploadTask.on(
-				"state_changed",
-				(snapshot) => {
-					const progress =
-						(snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-					setProgress(Math.ceil(progress));
-				},
-				(error) => {
-					console.log("AddProject -> error", error);
-					reject();
-				},
-				async () => {
-					const downloadURL = await storage
-						.ref("images")
-						.child(file.name)
-						.getDownloadURL();
-					resolve(downloadURL);
-				}
-			);
+			imagesAsFile.forEach((image) => {
+				const uploadTask = storage.ref(`images/${image.name}`).put(image);
+				uploadTask.on(
+					"state_changed",
+					(snapshot) => {
+						const progress =
+							(snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+						setProgress(Math.ceil(progress));
+					},
+					(error) => {
+						console.log("AddProject -> error", error);
+						reject();
+					},
+					async () => {
+						const downloadURL = await storage
+							.ref("images")
+							.child(image.name)
+							.getDownloadURL();
+						resolve(downloadURL);
+					}
+				);
+			});
 		});
 	};
 	return (
