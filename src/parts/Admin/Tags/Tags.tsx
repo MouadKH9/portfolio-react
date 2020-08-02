@@ -7,6 +7,7 @@ import AddTag from "./AddTag";
 import styled from "styled-components";
 import Col from "react-bootstrap/esm/Col";
 import Row from "react-bootstrap/esm/Row";
+import UnspecifiedTags from "./UnspecifiedTags";
 
 export default function Tags() {
 	const infoRef = useFirestore().collection("info").doc("main");
@@ -39,10 +40,16 @@ export default function Tags() {
 		clonedTags[index][field] = value;
 		setTags(clonedTags);
 	};
+
 	return (
 		<Container>
 			<Title>Add a tag</Title>
 			<AddTag addTag={addTag} />
+
+			<Title>Unspecified tags</Title>
+			<UnspecifiedTags
+				existingTags={tags.map((tag) => tag.name.toLowerCase())}
+			/>
 
 			<Title>Tags</Title>
 			<Row style={{ marginBottom: 10 }}>
