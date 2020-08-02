@@ -1,5 +1,6 @@
 import React from "react";
 import Modal from "react-bootstrap/Modal";
+import Carousel from "react-bootstrap/Carousel";
 import { ProjectInterface } from "../../parts/Portfolio/types";
 import styled from "styled-components";
 import TagImage from "../TagImage/TagImage";
@@ -19,11 +20,17 @@ export default function ProjectDetails({
 				<Modal.Body className="text-center">
 					<h3 className="text-center">{project.title}</h3>
 					<ImageContainer>
-						<img
-							className="w-100"
-							src={project.images[0] || ""}
-							alt="Screenshot"
-						/>
+						<Carousel>
+							{project.images.map((image) => (
+								<Carousel.Item>
+									<img
+										className="d-block w-100"
+										src={image || ""}
+										alt="Screenshot"
+									/>
+								</Carousel.Item>
+							))}
+						</Carousel>
 					</ImageContainer>
 					{project.link && (
 						<a target="_blank" rel="noopener noreferrer" href={project.link}>
