@@ -17,7 +17,6 @@ export default function UnspecifiedTags({
 		.map((project) => [...project.tags.map((tag) => tag.toLowerCase())])
 		.flat()
 		.filter((tag) => !existingTags.includes(tag));
-	console.log("tags", tags);
 
 	return (
 		<TagContainer>

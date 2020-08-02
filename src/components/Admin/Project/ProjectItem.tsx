@@ -24,7 +24,11 @@ export default function ProjectItem({
 				<Button style={{ marginLeft: 10 }} variant="primary">
 					<i className="fas fa-pen"></i>
 				</Button>
-				<Button style={{ marginLeft: 10 }} variant="danger">
+				<Button
+					style={{ marginLeft: 10 }}
+					variant="danger"
+					onClick={deleteProject}
+				>
 					<i className="fas fa-trash"></i>
 				</Button>
 			</Col>
