@@ -37,7 +37,6 @@ export default function AddProject() {
 	const [editorState, setEditorState] = useState(EditorState.createEmpty());
 	const [imagesAsFile, setImagesAsFile] = useState<any[]>([]);
 	const [loading, setLoading] = useState(false);
-	const [progress, setProgress] = useState(0);
 
 	const removeTag = (index: number) => () => {
 		const clonedTags = Array.from(tags);
@@ -45,7 +44,7 @@ export default function AddProject() {
 		setTags(clonedTags);
 	};
 
-	const addTag = (tag: string) => () => {
+	const addTag = (tag: string) => {
 		setTags([...tags, tag]);
 	};
 
@@ -82,30 +81,31 @@ export default function AddProject() {
 	};
 
 	const uploadImages = (): Promise<string[]> => {
-		return new Promise((resolve, reject) => {
-			imagesAsFile.forEach((image) => {
-				const uploadTask = storage.ref(`images/${image.name}`).put(image);
-				uploadTask.on(
-					"state_changed",
-					(snapshot) => {
-						const progress =
-							(snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-						setProgress(Math.ceil(progress));
-					},
-					(error) => {
-						console.log("AddProject -> error", error);
-						reject();
-					},
-					async () => {
-						const downloadURL = await storage
-							.ref("images")
-							.child(image.name)
-							.getDownloadURL();
-						resolve(downloadURL);
-					}
-				);
-			});
-		});
+		const promises: Promise<string>[] = [];
+		console.log("AddProject -> imagesAsFile", imagesAsFile);
+		for (const image of imagesAsFile) {
+			promises.push(
+				new Promise((resolve, reject) => {
+					const uploadTask = storage.ref(`images/${image.name}`).put(image);
+					uploadTask.on(
+						"state_changed",
+						(snapshot) => {},
+						(error) => {
+							console.log("AddProject -> error", error);
+							reject();
+						},
+						async () => {
+							const downloadURL = await storage
+								.ref("images")
+								.child(image.name)
+								.getDownloadURL();
+							resolve(downloadURL);
+						}
+					);
+				})
+			);
+		}
+		return Promise.all(promises);
 	};
 	return (
 		<Container>
@@ -133,7 +133,12 @@ export default function AddProject() {
 					</Col>
 					<Col sm={12}>
 						<Form.Group>
-							<Form.File label="Image" custom onChange={handleImageAsFile} />
+							<Form.File
+								label="Image"
+								custom
+								onChange={handleImageAsFile}
+								multiple
+							/>
 						</Form.Group>
 					</Col>
 					<Col sm={12} md={6}>
@@ -173,7 +178,7 @@ export default function AddProject() {
 						>
 							{loading ? (
 								<>
-									<i className="fas fa-circle-notch fa-spin"></i> {progress}%
+									<i className="fas fa-circle-notch fa-spin"></i>
 								</>
 							) : (
 								<>Add</>
