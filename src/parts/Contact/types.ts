@@ -2,6 +2,10 @@ export interface SiteInfo {
 	description: string;
 	services: Service[];
 	socialMedia: SocialMedia[];
+	tags: {
+		name: string;
+		image: string;
+	}[];
 }
 
 export interface Service {
